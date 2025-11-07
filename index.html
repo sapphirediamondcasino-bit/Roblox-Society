@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roblox Society</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #0a0a0a;
+            color: #e4e4e4;
+            overflow-x: hidden;
+        }
+
+        #matrix-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 280px;
+            background: rgba(17, 17, 17, 0.98);
+            border-right: 1px solid #2a2a2a;
+            padding: 20px;
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            backdrop-filter: blur(15px);
+        }
+
+        .sidebar::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .sidebar::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        .sidebar::-webkit-scrollbar-thumb {
+            background: #3a3a3a;
+            border-radius: 3px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+        }
+
+        .logo span {
+            font-size: 18px;
+            font-weight: bold;
+            color: #fff;
+        }
+
+        .nav-section {
+            margin-bottom: 25px;
+        }
+
+        .nav-item {
+            padding: 8px 12px;
+            margin: 4px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: #b4b4b4;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+
+        .nav-item.active {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+        }
+
+        .nav-category {
+            font-size: 11px;
+            text-transform: uppercase;
+            color: #666;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .content {
+            margin-left: 280px;
+            padding: 40px 60px;
+            flex: 1;
+            max-width: 1200px;
+            background: rgba(10, 10, 10, 0.85);
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            margin-bottom: 40px;
+        }
+
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 18px;
+            color: #999;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 6px 14px;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            margin-top: 15px;
+        }
+
+        .section {
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .command-card {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .command-card h3 {
+            color: #3b82f6;
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-family: 'Courier New', monospace;
+        }
+
+        .command-card p {
+            color: #b4b4b4;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+
+        .params-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 16px 0;
+            background: rgba(20, 20, 20, 0.5);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .params-table th {
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            padding: 12px 16px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .params-table td {
+            padding: 12px 16px;
+            border-top: 1px solid #2a2a2a;
+            color: #b4b4b4;
+            font-size: 14px;
+        }
+
+        .params-table td:first-child {
+            font-family: 'Courier New', monospace;
+            color: #60a5fa;
+        }
+
+        .dropdown {
+            background: rgba(40, 40, 40, 0.8);
+            border: 1px solid #2a2a2a;
+            border-radius: 8px;
+            margin: 16px 0;
+            overflow: hidden;
+        }
+
+        .dropdown-header {
+            padding: 16px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #e4e4e4;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .dropdown-header:hover {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s;
+        }
+
+        .dropdown.open .dropdown-arrow {
+            transform: rotate(90deg);
+        }
+
+        .dropdown-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            padding: 0 16px;
+        }
+
+        .dropdown.open .dropdown-content {
+            max-height: 2000px;
+            padding: 16px;
+        }
+
+        .info-box {
+            background: rgba(59, 130, 246, 0.1);
+            border-left: 4px solid #3b82f6;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+        }
+
+        .info-box p {
+            margin: 4px 0;
+            color: #b4b4b4;
+        }
+
+        .paywall-notice {
+            background: rgba(251, 146, 60, 0.1);
+            border-left: 4px solid #fb923c;
+            padding: 16px;
+            margin: 16px 0;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: rgba(30, 30, 30, 0.9);
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .timeline-table th {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+            padding: 16px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .timeline-table td {
+            padding: 16px;
+            border-top: 1px solid #2a2a2a;
+            color: #b4b4b4;
+        }
+
+        .timeline-table tr:hover {
+            background: rgba(59, 130, 246, 0.05);
+        }
+
+        .footer {
+            margin-top: 60px;
+            padding-top: 30px;
+            border-top: 1px solid #2a2a2a;
+            color: #666;
+            font-size: 13px;
+        }
+
+        h2 {
+            font-size: 28px;
+            margin: 30px 0 20px 0;
+            color: #fff;
+        }
+
+        code {
+            background: rgba(59, 130, 246, 0.15);
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            color: #60a5fa;
+            font-size: 13px;
+        }
+
+        a {
+            color: #3b82f6;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .disabled-badge {
+            display: inline-block;
+            background: rgba(251, 146, 60, 0.2);
+            color: #fb923c;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            margin-left: 8px;
+        }
+
+        .policy-section {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 20px;
+        }
+
+        .policy-section h3 {
+            color: #3b82f6;
+            margin-bottom: 12px;
+        }
+
+        .policy-section p {
+            color: #b4b4b4;
+            line-height: 1.6;
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="matrix-canvas"></canvas>
+    
+    <div class="container">
+        <nav class="sidebar">
+            <div class="logo">
+                <img src="https://cdn.discordapp.com/attachments/1428592257581318255/1435972278461661357/Roblox_Society_2.0.png" alt="Roblox Society">
+                <span>Roblox Society</span>
+            </div>
+            
+            <div class="nav-section">
+                <div class="nav-item active" data-section="home">🏠 Home</div>
+                <div class="nav-item" data-section="updates">🆕 Updates</div>
+            </div>
+
+            <div class="nav-category">Command Categories</div>
+            <div class="nav-section">
+                <div class="nav-item" data-section="marketplace">👕 Marketplace</div>
+                <div class="nav-item" data-section="users">🧑‍🦲 Users</div>
+                <div class="nav-item" data-section="groups">🪖 Groups</div>
+                <div class="nav-item" data-section="games">🎮 Games - v3</div>
+                <div class="nav-item" data-section="role-collector">📤 Role Collector</div>
+                <div class="nav-item" data-section="economy">📈 Economy</div>
+                <div class="nav-item" data-section="misc">⁉️ Misc</div>
+            </div>
+
+            <div class="nav-category">Town Hall</div>
+            <div class="nav-section">
+                <div class="nav-item" data-section="qa">⁉️ Q&A</div>
+                <div class="nav-item" data-section="hall-fame">🏆 Hall of Fame</div>
+            </div>
+
+            <div class="nav-category">Policies</div>
+            <div class="nav-section">
+                <div class="nav-item" data-section="policies">🧑‍⚖️ Policies</div>
+            </div>
+        </nav>
+
+        <main class="content">
+            <!-- Home Section -->
+            <section id="home" class="section active">
+                <div class="header">
+                    <h1>🏠 Home</h1>
+                    <p>Roblox Society is a Discord bot built for Roblox. There's commands for users, groups, assets, games, limiteds, economy and more.</p>
+                </div>
+
+                <h2>Status</h2>
+                <div class="status-badge">-> Fully operational</div>
+
+                <div class="footer">
+                    <p>Roblox and its various marks and logos are trademarks of Roblox Corporation. Roblox Society is not endorsed, sponsored or affiliated with Roblox Corporation.</p>
+                </div>
+            </section>
+
+            <!-- Updates Section -->
+            <section id="updates" class="section">
+                <div class="header">
+                    <h1>🆕 Updates</h1>
+                    <p>Complete development history of Roblox Society</p>
+                </div>
+
+                <table class="timeline-table">
+                    <thead>
+                        <tr>
+                            <th>Period</th>
+                            <th>Update</th>
+                            <th>Details</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Mid-Summer 2022</strong></td>
+                            <td>🎉 Initial Release</td>
+                            <td>Bot launched with 2 commands: <code>/rs</code> (asset/marketplace) and <code>/user info</code> (user information)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Late 2022 - 2023</strong></td>
+                            <td>⚙️ Development Phase</td>
+                            <td>Multiple bot recreations and layout changes. Experimental development period with limited feature expansion.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2023/2024</strong></td>
+                            <td>🏢 Kurrasch Systems Acquisition</td>
+                            <td>Kurrasch Network acquired and became Kurrasch Systems. Marked turning point for bot development.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Early 2024</strong></td>
+                            <td>🚀 Major Development Begins</td>
+                            <td>Started aggressive bot recreation and advancement initiative. Systematic expansion of features began.</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024 - Phase 1</strong></td>
+                            <td>👕 Marketplace Expansion</td>
+                            <td>Added: <code>/rsgroup</code>, <code>/asset content</code>, <code>/asset render</code>, <code>/bundle_info</code>, <code>/img2model</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024 - Phase 2</strong></td>
+                            <td>🧑‍🦲 Users Expansion</td>
+                            <td>Added: <code>/disc2rbx</code>, <code>/user has_badge</code>, <code>/user outfits</code> suite, <code>/user avatar</code> commands</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024 - Phase 3</strong></td>
+                            <td>🎮 Games v3 Launch</td>
+                            <td>Introduced: <code>/game badge image</code>, <code>/game badge checklist</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024 - Phase 4</strong></td>
+                            <td>🪖 Groups Category</td>
+                            <td>Added: <code>/group info</code>, <code>/group members</code>, <code>/group icon</code></td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024 - Phase 5</strong></td>
+                            <td>📤 Role Collector</td>
+                            <td>Launched innovative role collection game system with rarity mechanics, booster exclusives, and server configuration</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024 - Phase 6</strong></td>
+                            <td>📈 Economy System</td>
+                            <td>Deployed: <code>/devex</code>, <code>/limited cheapest</code>, <code>/limited search</code> for Robux/USD conversion and limited items</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024 - Phase 7</strong></td>
+                            <td>⁉️ Miscellaneous</td>
+                            <td>Added utility commands and tools</td>
+                        </tr>
+                        <tr>
+                            <td><strong>2024 - Phase 8</strong></td>
+                            <td>🏛️ Community Features</td>
+                            <td>Established Q&A section and Hall of Fame for community engagement</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ongoing</strong></td>
+                            <td>🔧 Active Development</td>
+                            <td>Continuous bug fixes, disabled command repairs, and new feature exploration</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="info-box">
+                    <p><strong>Note:</strong> Some commands are temporarily disabled while undergoing fixes and improvements. These will be restored in future updates with enhanced functionality.</p>
+                </div>
+            </section>
+
+            <!-- Marketplace Section -->
+            <section id="marketplace" class="section">
+                <div class="header">
+                    <h1>👕 Marketplace</h1>
+                    <p>formerly: Assets</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/rs</h3>
+                    <p>Obtain an asset's content, information and if applicable, associated assets.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | (o)ptional</p>
+                    
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>asset_identification</td>
+                                <td>Asset ID, Link or HASH [???]</td>
+                            </tr>
+                            <tr>
+                                <td>asset_verison (o)</td>
+                                <td>-> Retrieve a specific version of asset. By default, the most recent version of asset is used. [???]</td>
+                            </tr>
+                            <tr>
+                                <td>retrieve_as (o)</td>
+                                <td>-> Retrieve the asset's content as a file or link. "Link" will give only give the link to the asset's! uploaded, clothing, decals and images will give an XML file. [???]</td>
+                            </tr>
+                            <tr>
+                                <td>place_id (o)</td>
+                                <td>For audios. [???]</td>
+                            </tr>
+                            <tr>
+                                <td>archive (o)</td>
+                                <td>Archive the asset in chat? Defaults to False. [???]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>What asset types are supported?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>Image, T-Shirt, Audio, Mesh, Hat, Place, Model, Shirt, Pants, Decal, Head, Face, Gear, Gear, Animation, Arms, Legs, Torso, Right Arm, Left Arm, Left Leg, Right Leg, Gear, Mesh Part, Hair Accessory, Face Accessory, Neck Accessory, Shoulder Accessory, Front Accessory, Back Accessory, Waist Accessory, Climb Animation, Death Animation, Fall Animation, Idle Animation, Jump Animation, Run Animation, Swim Animation, Walk Animation, Pose Animation, Ear Accessory, Eye Accessory, Emote Animation, TShirtAccessory, ShirtAccessory, PantsAccessory, JacketAccessory, SweaterAccessory, ShortsAccessory, LeftShoeAccessory, RightShoeAccessory, and DressSkirtAccessory</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>I want to delete an asset posted in chat.</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>Right click the message, click "apps" and then "delete_rs_message"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/rsgroup</h3>
+                    <p>Obtain your group's clothing assets neatly organized in a zipfile.</p>
+                    
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>Params | (r)equired - (o)ptional</th>
+                                <th>Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>the group's id</td>
+                            </tr>
+                            <tr>
+                                <td>page</td>
+                                <td>1 page contains 60 clothing assets</td>
+                            </tr>
+                            <tr>
+                                <td>cover</td>
+                                <td>background cover</td>
+                            </tr>
+                            <tr>
+                                <td>exclude_tshirts</td>
+                                <td>exclude t-shirts</td>
+                            </tr>
+                            <tr>
+                                <td>exclude_pants</td>
+                                <td>exclude pants</td>
+                            </tr>
+                            <tr>
+                                <td>exclude_shirts</td>
+                                <td>exclude shirts</td>
+                            </tr>
+                            <tr>
+                                <td>include_offsale</td>
+                                <td>include offsale clothing assets?</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <div class="paywall-notice">
+                        <span>⚠️</span>
+                        <p>This <code>command</code> is behind a paywall that has yet to determined.</p>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/asset content</h3>
+                    <p>This command is essentially the RS command but receives additional features n' such first for testing before the code is transferred to the RS command.</p>
+                    <p style="margin-top: 12px; font-style: italic; color: #888;">i cba writing docs</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/asset render</h3>
+                    <p>Get a zipfile containing the 3D data for an asset.</p>
+                    
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>Params</th>
+                                <th>Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>The asset ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/bundle_info</h3>
+                    <p>Get the associated asset(s) of a bundle.</p>
+                    
+                    <table class="params-table">
+                        <thead>
+                            <tr>
+                                <th>Params</th>
+                                <th>Info</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>The bundle's ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/img2model <span class="disabled-badge">This command is currently disabled</span></h3>
+                    <p>Convert an image into a roblox model.</p>
+                </div>
+            </section>
+
+            <!-- Users Section -->
+            <section id="users" class="section">
+                <div class="header">
+                    <h1>🧑‍🦲 Users</h1>
+                </div>
+
+                <div class="command-card">
+                    <h3>/disc2rbx <span class="disabled-badge">[This command is disabled]</span></h3>
+                    <p>Check if a Discord account has their Roblox account linked to it</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired - (o)ptional</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>user (r)</td>
+                                <td>Discord account ID or mention</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <p>The <a href="https://blox.link/">bloxlink</a> API is used for this command.</p>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user info</h3>
+                    <p>Get information about a Roblox account</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>user</td>
+                                <td>Username or User ID [?]</td>
+                            </tr>
+                            <tr>
+                                <td>user_identity_type (optional)</td>
+                                <td>Set this when using a User ID [?]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <p>Rap & Value grabbed from <a href="https://www.rolimons.com/">Rolimon's</a></p>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user has_badge</h3>
+                    <p>Check if a user has a badge.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired - (o)ptional</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>user (r-o)</td>
+                                <td>Search by username [?]</td>
+                            </tr>
+                            <tr>
+                                <td>badge_id</td>
+                                <td>The badge's ID</td>
+                            </tr>
+                            <tr>
+                                <td>user_id (r-o)</td>
+                                <td>Search by user ID [?]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user outfits all</h3>
+                    <p>Allows you to go though anyone's outfit list and get information on it.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>username</td>
+                                <td>Search by username</td>
+                            </tr>
+                            <tr>
+                                <td>user_id</td>
+                                <td>Search by user ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user outfits allimg</h3>
+                    <p>Compiles every outfit the user has onto 1 image. -> This command is disabled.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>username</td>
+                                <td>Search by username</td>
+                            </tr>
+                            <tr>
+                                <td>user_id</td>
+                                <td>Search by user ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user outfits render</h3>
+                    <p>Get a zipfile containing the needed files for viewing roblox avatars in 3D modeling/viewer programs.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>id</td>
+                                <td>The outfit id</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user avatar render</h3>
+                    <p>Get a zipfile containing the needed files for viewing roblox avatars in 3D modeling/viewer programs.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>username</td>
+                                <td>Search by username</td>
+                            </tr>
+                            <tr>
+                                <td>user_id</td>
+                                <td>Search by user ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user avatar wearing</h3>
+                    <p>Get the items a user is currently wearing.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>username</td>
+                                <td>Search by username</td>
+                            </tr>
+                            <tr>
+                                <td>user_id</td>
+                                <td>Search by user ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user avatar configuration</h3>
+                    <p>Get a user's avatar configuration.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>username</td>
+                                <td>Search by username</td>
+                            </tr>
+                            <tr>
+                                <td>user_id</td>
+                                <td>Search by user ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="info-box">
+                        <p>You can use <code>/rbxtools skintone_lookup</code> for getting color information.</p>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/user avatar image</h3>
+                    <p>Get an image of the user's current outfit.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options</p>
+                    <p style="font-weight: 600; color: #888;">Info</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>username</td>
+                                <td>Search by username</td>
+                            </tr>
+                            <tr>
+                                <td>user_id</td>
+                                <td>Search by user ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Groups Section -->
+            <section id="groups" class="section">
+                <div class="header">
+                    <h1>🪖 Groups</h1>
+                </div>
+
+                <div class="command-card">
+                    <h3>/group info</h3>
+                    <p>Get information on a group.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>group_id (r)</td>
+                                <td>The Roblox group ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/group members</h3>
+                    <p>View group members by rank.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired - (o)ptional</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>group_id (r)</td>
+                                <td>The Roblox group ID</td>
+                            </tr>
+                            <tr>
+                                <td>rank (o)</td>
+                                <td>Filter by rank number</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/group icon</h3>
+                    <p>Get a group's icon.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>group_id (r)</td>
+                                <td>The Roblox group ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Games Section -->
+            <section id="games" class="section">
+                <div class="header">
+                    <h1>🎮 Games - v3</h1>
+                    <p>Group information category</p>
+                    <p>(r)equired - (o)ptional</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/game badge image</h3>
+                    <p>Get the icon of a badge</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>id (r)</td>
+                                <td>Badge ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/game badge checklist</h3>
+                    <p>Check how many badges a game has and how many more a user needs</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>id (r)</td>
+                                <td>Game ID</td>
+                            </tr>
+                            <tr>
+                                <td>user</td>
+                                <td>User Name or ID</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Role Collector Section -->
+            <section id="role-collector" class="section">
+                <div class="header">
+                    <h1>📤 Role Collector</h1>
+                    <p>Role Collector is server game where server members can collect rare roles based off their rarity!</p>
+                    <p>Contact Dev if you find any vulns. I'll try to make it worth your time with exclusive features that dont exist yet :0</p>
+                </div>
+
+                <h2>Things to know in general</h2>
+                <div class="info-box">
+                    <p>-> Roles that were deleted from the server and previously part of Role Unboxer will be automatically removed from the database.</p>
+                    <p>-> Roles aren't pinged.</p>
+                    <p>-> There's no unboxable role limit atm.</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/role_collector_configure settings</h3>
+                    <p>Server admins can configure Role Collector settings with this command.</p>
+                    <p>You can run the command without any options to see the current configuration on file.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired - (o)ptional</p>
+                    <p style="font-weight: 600; color: #888;">Information</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>enabled (o)</td>
+                                <td>Can members collect roles? [?]</td>
+                            </tr>
+                            <tr>
+                                <td>cooldown (o)</td>
+                                <td>The cooldown for collecting roles. [?]</td>
+                            </tr>
+                            <tr>
+                                <td>booster_cooldown (o)</td>
+                                <td>The booster cooldown for collecting roles. [?]</td>
+                            </tr>
+                            <tr>
+                                <td>unbox_amount</td>
+                                <td>How many roles will the member unbox at once? [?]</td>
+                            </tr>
+                            <tr>
+                                <td>booster_unbox_amount</td>
+                                <td>How many roles will the server boosting member unbox at once? [?]</td>
+                            </tr>
+                            <tr>
+                                <td>separator</td>
+                                <td>Give a specific role to the member when they collect a role. [?]</td>
+                            </tr>
+                            <tr>
+                                <td>remove_self_unboxed_roles</td>
+                                <td>Can members remove roles they've unboxed from themselves?</td>
+                            </tr>
+                            <tr>
+                                <td>remove</td>
+                                <td>Remove the separator, configuration, server cooldowns, or everything. [?]</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/role_collector_configure role</h3>
+                    <p>Configure a role for Role Collector</p>
+                    <div class="info-box">
+                        <p>Roles above Roblox Society's highest role cannot be an unboxable role.</p>
+                        <p>Server admins cannot make roles that're higher than there own unboxable. [?]</p>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/role_collector unbox</h3>
+                    <p>Unbox a role in the server.</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>simulate</td>
+                                <td>Tests the command a specified number of times to get an idea of the current role probabilities</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/unboxable_roles</h3>
+                    <p>View all of the unboxable roles in a server.</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>Hide_special_roles</td>
+                                <td>Hides both 'server booster only' and 'unobtainable' roles so you'll only see roles you can obtain through /unbox_role</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Economy Section -->
+            <section id="economy" class="section">
+                <div class="header">
+                    <h1>📈 Economy</h1>
+                </div>
+
+                <div class="command-card">
+                    <h3>/devex</h3>
+                    <p>-> Convert Robux to USD or vice versa.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | [Required]</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>converting_from [Required]</td>
+                                <td>Select Robux or USD</td>
+                            </tr>
+                            <tr>
+                                <td>amount [Required]</td>
+                                <td>The amount of USD/ROBUX to convert.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="command-card">
+                    <h3>/limited cheapest</h3>
+                    <p>-> Get the cheapest limited on the catalog.</p>
+                </div>
+
+                <div class="command-card">
+                    <h3>/limited search</h3>
+                    <p>-> Lookup a Classic/UGC limited.</p>
+                    <p style="font-weight: 600; margin-top: 12px;">Options | [Required]</p>
+                    <table class="params-table">
+                        <tbody>
+                            <tr>
+                                <td>type [Required]</td>
+                                <td>Classic or UGC?</td>
+                            </tr>
+                            <tr>
+                                <td>item [Required]</td>
+                                <td>Item name, ID, or abbreviation.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Misc Section -->
+            <section id="misc" class="section">
+                <div class="header">
+                    <h1>⁉️ Misc</h1>
+                    <p>miscellaneous commands</p>
+                </div>
+            </section>
+
+            <!-- Q&A Section -->
+            <section id="qa" class="section">
+                <div class="header">
+                    <h1>⁉️ Q&A</h1>
+                </div>
+
+                <div class="info-box">
+                    <p>Q&A section - add your content here</p>
+                </div>
+            </section>
+
+            <!-- Hall of Fame Section -->
+            <section id="hall-fame" class="section">
+                <div class="header">
+                    <h1>🏆 Hall of Fame</h1>
+                    <p>Recognizing outstanding community members</p>
+                </div>
+
+                <div class="info-box">
+                    <p>Hall of Fame entries - add your honorees here</p>
+                </div>
+            </section>
+
+            <!-- Policies Section -->
+            <section id="policies" class="section">
+                <div class="header">
+                    <h1>🧑‍⚖️ Policies</h1>
+                </div>
+
+                <div class="policy-section">
+                    <p>These policies are strictly for Roblox Society Discord bot.</p>
+                    <p style="margin-top: 16px;">Add your custom Terms of Service, Privacy Policy, and other policies here. Your policies are different and more comprehensive than the standard policies.</p>
+                </div>
+
+                <div class="footer">
+                    <p>Roblox and its various marks and logos are trademarks of Roblox Corporation. Roblox Society is not endorsed, sponsored or affiliated with Roblox Corporation.</p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        const canvas = document.getElementById('matrix-canvas');
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const fontSize = 18;
+        const columns = canvas.width / fontSize;
+        const drops = [];
+
+        for (let i = 0; i < columns; i++) {
+            drops[i] = Math.floor(Math.random() * -50);
+        }
+
+        const chars = '01ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(10, 10, 10, 0.05)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            ctx.font = fontSize + 'px "Courier New", monospace';
+
+            for (let i = 0; i < drops.length; i++) {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                
+                // RED for 0 and A-M letters
+                if (text === '0' || (text >= 'A' && text <= 'M') || (text >= 'a' && text <= 'm')) {
+                    ctx.fillStyle = '#dc2626';
+                } 
+                // NAVY BLUE for 1 and N-Z letters
+                else {
+                    ctx.fillStyle = '#1e3a8a';
+                }
+
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                    drops[i] = 0;
+                }
+
+                drops[i]++;
+            }
+        }
+
+        setInterval(drawMatrix, 35);
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        });
+
+        // Dropdown functionality
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.dropdown-header')) {
+                const dropdown = e.target.closest('.dropdown');
+                dropdown.classList.toggle('open');
+            }
+        });
+
+        // Navigation
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('.section');
+
+        navItems.forEach(item => {
+            item.addEventListener('click', () => {
+                const targetSection = item.getAttribute('data-section');
+
+                navItems.forEach(nav => nav.classList.remove('active'));
+                item.classList.add('active');
+
+                sections.forEach(section => {
+                    section.classList.remove('active');
+                    if (section.id === targetSection) {
+                        section.classList.add('active');
+                    }
+                });
+
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            });
+        });
+    </script>
+</body>
+</html>
