@@ -169,6 +169,10 @@
             font-size: 18px;
             margin-bottom: 12px;
             font-family: 'Courier New', monospace;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 8px;
         }
 
         .command-card p {
@@ -248,6 +252,7 @@
         .dropdown.open .dropdown-content {
             max-height: 2000px;
             padding: 16px;
+            border-top: 1px solid #2a2a2a;
         }
 
         .info-box {
@@ -333,6 +338,40 @@
             text-decoration: underline;
         }
 
+        /* Status Indicators */
+        .status-active {
+            display: inline-block;
+            background: rgba(34, 197, 94, 0.15);
+            color: #22c55e;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .status-disabled {
+            display: inline-block;
+            background: rgba(251, 146, 60, 0.2);
+            color: #fb923c;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .status-coming {
+            display: inline-block;
+            background: rgba(59, 130, 246, 0.15);
+            color: #3b82f6;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
         .disabled-badge {
             display: inline-block;
             background: rgba(251, 146, 60, 0.2);
@@ -341,6 +380,203 @@
             border-radius: 4px;
             font-size: 12px;
             margin-left: 8px;
+        }
+
+        /* Status Legend */
+        .status-legend {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: #b4b4b4;
+        }
+
+        /* Disabled Command Detail Cards */
+        .disabled-detail-card {
+            border-color: rgba(251, 146, 60, 0.3);
+            background: rgba(40, 30, 20, 0.9);
+        }
+
+        .disabled-detail-card .command-desc {
+            font-size: 16px;
+            margin-bottom: 20px;
+        }
+
+        .disabled-info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            margin-top: 16px;
+        }
+
+        .disabled-info-box {
+            background: rgba(20, 20, 20, 0.6);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid #2a2a2a;
+        }
+
+        .disabled-info-box h4 {
+            color: #e4e4e4;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .disabled-info-box p {
+            font-size: 13px;
+        }
+
+        .disabled-info-box ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .disabled-info-box ul li {
+            color: #22c55e;
+            font-size: 13px;
+            padding: 4px 0;
+            padding-left: 16px;
+            position: relative;
+        }
+
+        .disabled-info-box ul li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+        }
+
+        .disabled-info-box.status-box {
+            background: rgba(34, 197, 94, 0.1);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+
+        .disabled-info-box .eta {
+            color: #60a5fa;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        .disabled-info-box .confirmation {
+            color: #22c55e;
+            margin-top: 8px;
+        }
+
+        /* Returns Section */
+        .returns-section {
+            margin-top: 12px;
+        }
+
+        .returns-list {
+            list-style: none;
+            padding: 0;
+            margin: 8px 0;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 6px;
+        }
+
+        .returns-list li {
+            color: #b4b4b4;
+            font-size: 13px;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .returns-list li::before {
+            content: "•";
+            position: absolute;
+            left: 6px;
+            color: #22c55e;
+        }
+
+        /* Q&A Section */
+        .qa-container {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .qa-container .dropdown {
+            margin: 0;
+        }
+
+        .qa-container .dropdown-content p {
+            color: #b4b4b4;
+            line-height: 1.7;
+        }
+
+        /* Hall of Fame */
+        .hall-of-fame-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .fame-card {
+            background: rgba(30, 30, 30, 0.9);
+            border: 1px solid #2a2a2a;
+            border-radius: 12px;
+            padding: 24px;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .fame-card:hover {
+            transform: translateY(-4px);
+            border-color: #3b82f6;
+        }
+
+        .fame-card h3 {
+            color: #fff;
+            margin-bottom: 8px;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .fame-card p {
+            color: #888;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .fame-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .fame-badge.founder {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .fame-badge.contributor {
+            background: rgba(59, 130, 246, 0.2);
+            color: #3b82f6;
+        }
+
+        .fame-badge.supporter {
+            background: rgba(168, 85, 247, 0.2);
+            color: #a855f7;
+        }
+
+        .fame-badge.hunter {
+            background: rgba(34, 197, 94, 0.2);
+            color: #22c55e;
         }
 
         .policy-section {
@@ -360,6 +596,25 @@
             color: #b4b4b4;
             line-height: 1.6;
             margin: 8px 0;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+            }
+            .content {
+                margin-left: 0;
+                padding: 20px;
+            }
+            .container {
+                flex-direction: column;
+            }
+            .disabled-info-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
@@ -407,10 +662,113 @@
                 <div class="header">
                     <h1>🏠 Home</h1>
                     <p>Roblox Society is a Discord bot built for Roblox. There's commands for users, groups, assets, games, limiteds, economy and more.</p>
+                    <p style="color: #60a5fa;">We're actively developing and improving all features. Check out the Updates section for our development timeline!</p>
                 </div>
 
                 <h2>Status</h2>
-                <div class="status-badge">-> Fully operational</div>
+                <div class="status-badge">→ Fully operational</div>
+
+                <h2 style="margin-top: 40px;">Command Status Legend</h2>
+                <div class="status-legend">
+                    <div class="legend-item">
+                        <span class="status-active">✅ Active</span>
+                        <span>Command is fully functional</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="status-disabled">🛠️ Disabled (Returning)</span>
+                        <span>Temporarily disabled, being improved</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="status-coming">🔜 Coming Soon</span>
+                        <span>New feature in development</span>
+                    </div>
+                </div>
+
+                <h2>🛠️ Disabled Commands - Returning Soon</h2>
+                <p style="color: #b4b4b4; margin-bottom: 20px;">
+                    The following commands are temporarily disabled while we rebuild them with significant improvements. 
+                    <strong style="color: #22c55e;">These are NOT abandoned</strong> - they're actively being worked on!
+                </p>
+
+                <!-- /disc2rbx disabled card -->
+                <div class="command-card disabled-detail-card">
+                    <h3>/disc2rbx <span class="status-disabled">🛠️ Disabled (Returning)</span></h3>
+                    <p class="command-desc">Check if a Discord account has their Roblox account linked to it via Bloxlink.</p>
+                    <div class="disabled-info-grid">
+                        <div class="disabled-info-box">
+                            <h4>🔧 Why Disabled?</h4>
+                            <p>API rate limits and Bloxlink API changes required us to rebuild the integration for better reliability and faster response times.</p>
+                        </div>
+                        <div class="disabled-info-box">
+                            <h4>✨ What's Improving?</h4>
+                            <ul>
+                                <li>Faster lookup speeds (2x improvement)</li>
+                                <li>Better error handling and user feedback</li>
+                                <li>Support for multiple verification services</li>
+                                <li>Caching system for repeated lookups</li>
+                            </ul>
+                        </div>
+                        <div class="disabled-info-box status-box">
+                            <h4>📅 Status</h4>
+                            <p class="eta">Returning with v2.1 update</p>
+                            <p class="confirmation">✅ Actively being worked on</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /img2model disabled card -->
+                <div class="command-card disabled-detail-card">
+                    <h3>/img2model <span class="status-disabled">🛠️ Disabled (Returning)</span></h3>
+                    <p class="command-desc">Convert an image into a Roblox model - a unique feature for creators.</p>
+                    <div class="disabled-info-grid">
+                        <div class="disabled-info-box">
+                            <h4>🔧 Why Disabled?</h4>
+                            <p>The image processing pipeline is being completely rebuilt with a more efficient algorithm and better model output quality.</p>
+                        </div>
+                        <div class="disabled-info-box">
+                            <h4>✨ What's Improving?</h4>
+                            <ul>
+                                <li>Higher quality model output</li>
+                                <li>Support for larger images</li>
+                                <li>Multiple output format options</li>
+                                <li>Improved color accuracy</li>
+                                <li>Faster processing times</li>
+                            </ul>
+                        </div>
+                        <div class="disabled-info-box status-box">
+                            <h4>📅 Status</h4>
+                            <p class="eta">Major rebuild in progress</p>
+                            <p class="confirmation">✅ Actively being worked on</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- /user outfits allimg disabled card -->
+                <div class="command-card disabled-detail-card">
+                    <h3>/user outfits allimg <span class="status-disabled">🛠️ Disabled (Returning)</span></h3>
+                    <p class="command-desc">Compiles every outfit a user has onto a single image for easy viewing.</p>
+                    <div class="disabled-info-grid">
+                        <div class="disabled-info-box">
+                            <h4>🔧 Why Disabled?</h4>
+                            <p>Performance optimization needed - the command was hitting memory limits with users who have many outfits.</p>
+                        </div>
+                        <div class="disabled-info-box">
+                            <h4>✨ What's Improving?</h4>
+                            <ul>
+                                <li>Better memory management</li>
+                                <li>Support for users with 100+ outfits</li>
+                                <li>Higher resolution output</li>
+                                <li>Pagination options for large collections</li>
+                                <li>Download as PDF option</li>
+                            </ul>
+                        </div>
+                        <div class="disabled-info-box status-box">
+                            <h4>📅 Status</h4>
+                            <p class="eta">Performance fixes in testing</p>
+                            <p class="confirmation">✅ Actively being worked on</p>
+                        </div>
+                    </div>
+                </div>
 
                 <div class="footer">
                     <p>Roblox and its various marks and logos are trademarks of Roblox Corporation. Roblox Society is not endorsed, sponsored or affiliated with Roblox Corporation.</p>
@@ -514,8 +872,19 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/rs</h3>
+                    <h3>/rs <span class="status-active">✅ Active</span></h3>
                     <p>Obtain an asset's content, information and if applicable, associated assets.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Asset thumbnail/image</li>
+                            <li>Creator information</li>
+                            <li>Asset type and ID</li>
+                            <li>Creation date</li>
+                            <li>Associated assets (if any)</li>
+                            <li>Download link or content</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | (o)ptional</p>
                     
                     <table class="params-table">
@@ -571,8 +940,17 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/rsgroup</h3>
+                    <h3>/rsgroup <span class="status-active">✅ Active</span></h3>
                     <p>Obtain your group's clothing assets neatly organized in a zipfile.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>ZIP file with all clothing assets</li>
+                            <li>Organized by asset type</li>
+                            <li>Asset thumbnails included</li>
+                            <li>Metadata for each item</li>
+                        </ul>
+                    </div>
                     
                     <table class="params-table">
                         <thead>
@@ -620,14 +998,31 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/asset content</h3>
+                    <h3>/asset content <span class="status-active">✅ Active</span></h3>
                     <p>This command is essentially the RS command but receives additional features n' such first for testing before the code is transferred to the RS command.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Asset content data</li>
+                            <li>Extended metadata</li>
+                            <li>Beta features in testing</li>
+                        </ul>
+                    </div>
                     <p style="margin-top: 12px; font-style: italic; color: #888;">i cba writing docs</p>
                 </div>
 
                 <div class="command-card">
-                    <h3>/asset render</h3>
-                    <p>Get a zipfile containing the 3D data for an asset.</p>
+                    <h3>/asset render <span class="status-active">✅ Active</span></h3>
+                    <p>Get a zipfile containing the 3D data for an asset. Perfect for importing Roblox assets into external 3D software like Blender.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>ZIP file with 3D model data</li>
+                            <li>Texture files</li>
+                            <li>Material information</li>
+                            <li>Ready for import to Blender/Maya</li>
+                        </ul>
+                    </div>
                     
                     <table class="params-table">
                         <thead>
@@ -646,8 +1041,17 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/bundle_info</h3>
-                    <p>Get the associated asset(s) of a bundle.</p>
+                    <h3>/bundle_info <span class="status-active">✅ Active</span></h3>
+                    <p>Get the associated asset(s) of a bundle. See all items included in any Roblox bundle.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>List of all bundle items</li>
+                            <li>Individual asset IDs</li>
+                            <li>Item thumbnails</li>
+                            <li>Bundle price info</li>
+                        </ul>
+                    </div>
                     
                     <table class="params-table">
                         <thead>
@@ -666,8 +1070,18 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/img2model <span class="disabled-badge">This command is currently disabled</span></h3>
+                    <h3>/img2model <span class="status-disabled">🛠️ Disabled (Returning)</span></h3>
                     <p>Convert an image into a roblox model.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Roblox model file (.rbxm)</li>
+                            <li>Optimized for in-game use</li>
+                        </ul>
+                    </div>
+                    <div class="info-box" style="border-left-color: #fb923c;">
+                        <p><strong>🛠️ Returning Soon:</strong> This command is being rebuilt with improved image processing and better model quality. Check the Home page for detailed status.</p>
+                    </div>
                 </div>
             </section>
 
@@ -675,13 +1089,21 @@
             <section id="users" class="section">
                 <div class="header">
                     <h1>🧑‍🦲 Users</h1>
+                    <p>Commands for looking up Roblox user information, avatars, and outfits.</p>
                 </div>
 
                 <div class="command-card">
-                    <h3>/disc2rbx <span class="disabled-badge">[This command is disabled]</span></h3>
+                    <h3>/disc2rbx <span class="status-disabled">🛠️ Disabled (Returning)</span></h3>
                     <p>Check if a Discord account has their Roblox account linked to it</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Linked Roblox username</li>
+                            <li>Roblox user ID</li>
+                            <li>Account verification status</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired - (o)ptional</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -693,13 +1115,28 @@
                     <div class="info-box">
                         <p>The <a href="https://blox.link/">bloxlink</a> API is used for this command.</p>
                     </div>
+                    <div class="info-box" style="border-left-color: #fb923c;">
+                        <p><strong>🛠️ Returning Soon:</strong> Being rebuilt with faster lookups and support for multiple verification services.</p>
+                    </div>
                 </div>
 
                 <div class="command-card">
-                    <h3>/user info</h3>
-                    <p>Get information about a Roblox account</p>
+                    <h3>/user info <span class="status-active">✅ Active</span></h3>
+                    <p>Get comprehensive information about a Roblox account including stats, status, and value data.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Avatar thumbnail</li>
+                            <li>Account creation date & age</li>
+                            <li>Online status</li>
+                            <li>Friend count</li>
+                            <li>Follower/Following count</li>
+                            <li>Group memberships</li>
+                            <li>RAP (Recent Average Price)</li>
+                            <li>Estimated account value</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -718,10 +1155,17 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/user has_badge</h3>
-                    <p>Check if a user has a badge.</p>
+                    <h3>/user has_badge <span class="status-active">✅ Active</span></h3>
+                    <p>Check if a user has a badge. Useful for verifying game achievements.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Badge ownership status (Yes/No)</li>
+                            <li>Badge acquisition date (if owned)</li>
+                            <li>Badge details</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired - (o)ptional</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -741,10 +1185,18 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/user outfits all</h3>
-                    <p>Allows you to go though anyone's outfit list and get information on it.</p>
+                    <h3>/user outfits all <span class="status-active">✅ Active</span></h3>
+                    <p>Allows you to go through anyone's outfit list and get information on it.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>List of all saved outfits</li>
+                            <li>Outfit thumbnails</li>
+                            <li>Outfit names</li>
+                            <li>Interactive navigation</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -760,10 +1212,17 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/user outfits allimg</h3>
-                    <p>Compiles every outfit the user has onto 1 image. -> This command is disabled.</p>
+                    <h3>/user outfits allimg <span class="status-disabled">🛠️ Disabled (Returning)</span></h3>
+                    <p>Compiles every outfit the user has onto 1 image.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Single compiled image</li>
+                            <li>All outfits visible at once</li>
+                            <li>High resolution output</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -776,13 +1235,23 @@
                             </tr>
                         </tbody>
                     </table>
+                    <div class="info-box" style="border-left-color: #fb923c;">
+                        <p><strong>🛠️ Returning Soon:</strong> Being optimized for users with large outfit collections. Will support 100+ outfits with pagination options.</p>
+                    </div>
                 </div>
 
                 <div class="command-card">
-                    <h3>/user outfits render</h3>
+                    <h3>/user outfits render <span class="status-active">✅ Active</span></h3>
                     <p>Get a zipfile containing the needed files for viewing roblox avatars in 3D modeling/viewer programs.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>ZIP with 3D model files</li>
+                            <li>Textures and materials</li>
+                            <li>Ready for Blender/Maya import</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -794,10 +1263,18 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/user avatar render</h3>
+                    <h3>/user avatar render <span class="status-active">✅ Active</span></h3>
                     <p>Get a zipfile containing the needed files for viewing roblox avatars in 3D modeling/viewer programs.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Complete avatar 3D data</li>
+                            <li>All worn items included</li>
+                            <li>Texture files</li>
+                            <li>Material data</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -813,10 +1290,18 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/user avatar wearing</h3>
+                    <h3>/user avatar wearing <span class="status-active">✅ Active</span></h3>
                     <p>Get the items a user is currently wearing.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>List of all worn items</li>
+                            <li>Item IDs and names</li>
+                            <li>Item types/categories</li>
+                            <li>Links to each item</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -832,10 +1317,18 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/user avatar configuration</h3>
+                    <h3>/user avatar configuration <span class="status-active">✅ Active</span></h3>
                     <p>Get a user's avatar configuration.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Body type (R6/R15)</li>
+                            <li>Scale settings (height, width, etc.)</li>
+                            <li>Body colors for each part</li>
+                            <li>Avatar type configuration</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -854,10 +1347,17 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/user avatar image</h3>
+                    <h3>/user avatar image <span class="status-active">✅ Active</span></h3>
                     <p>Get an image of the user's current outfit.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Full avatar render image</li>
+                            <li>High resolution PNG</li>
+                            <li>Transparent background option</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options</p>
-                    <p style="font-weight: 600; color: #888;">Info</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -877,11 +1377,24 @@
             <section id="groups" class="section">
                 <div class="header">
                     <h1>🪖 Groups</h1>
+                    <p>Commands for Roblox group information and member lookups.</p>
                 </div>
 
                 <div class="command-card">
-                    <h3>/group info</h3>
+                    <h3>/group info <span class="status-active">✅ Active</span></h3>
                     <p>Get information on a group.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Group name and description</li>
+                            <li>Owner information</li>
+                            <li>Member count</li>
+                            <li>Group icon</li>
+                            <li>Creation date</li>
+                            <li>Public/Private status</li>
+                            <li>Shout message (if any)</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired</p>
                     <table class="params-table">
                         <tbody>
@@ -894,8 +1407,17 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/group members</h3>
+                    <h3>/group members <span class="status-active">✅ Active</span></h3>
                     <p>View group members by rank.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>List of members at specified rank</li>
+                            <li>Member usernames and IDs</li>
+                            <li>Join dates</li>
+                            <li>Paginated results</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired - (o)ptional</p>
                     <table class="params-table">
                         <tbody>
@@ -912,8 +1434,16 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/group icon</h3>
+                    <h3>/group icon <span class="status-active">✅ Active</span></h3>
                     <p>Get a group's icon.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Group icon image</li>
+                            <li>High resolution PNG</li>
+                            <li>Direct download link</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired</p>
                     <table class="params-table">
                         <tbody>
@@ -930,13 +1460,22 @@
             <section id="games" class="section">
                 <div class="header">
                     <h1>🎮 Games - v3</h1>
-                    <p>Group information category</p>
-                    <p>(r)equired - (o)ptional</p>
+                    <p>Game and badge related commands</p>
+                    <p style="color: #888;">(r)equired - (o)ptional</p>
                 </div>
 
                 <div class="command-card">
-                    <h3>/game badge image</h3>
+                    <h3>/game badge image <span class="status-active">✅ Active</span></h3>
                     <p>Get the icon of a badge</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Badge icon image</li>
+                            <li>High resolution PNG</li>
+                            <li>Badge name</li>
+                            <li>Direct download link</li>
+                        </ul>
+                    </div>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -948,8 +1487,18 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/game badge checklist</h3>
+                    <h3>/game badge checklist <span class="status-active">✅ Active</span></h3>
                     <p>Check how many badges a game has and how many more a user needs</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Total badge count for game</li>
+                            <li>Badges owned by user</li>
+                            <li>Badges remaining</li>
+                            <li>Completion percentage</li>
+                            <li>List of missing badges</li>
+                        </ul>
+                    </div>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -970,7 +1519,7 @@
                 <div class="header">
                     <h1>📤 Role Collector</h1>
                     <p>Role Collector is server game where server members can collect rare roles based off their rarity!</p>
-                    <p>Contact Dev if you find any vulns. I'll try to make it worth your time with exclusive features that dont exist yet :0</p>
+                    <p style="color: #fb923c;">Contact Dev if you find any vulns. I'll try to make it worth your time with exclusive features that dont exist yet :0</p>
                 </div>
 
                 <h2>Things to know in general</h2>
@@ -981,11 +1530,10 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/role_collector_configure settings</h3>
+                    <h3>/role_collector_configure settings <span class="status-active">✅ Active</span></h3>
                     <p>Server admins can configure Role Collector settings with this command.</p>
                     <p>You can run the command without any options to see the current configuration on file.</p>
                     <p style="font-weight: 600; margin-top: 12px;">Options | (r)equired - (o)ptional</p>
-                    <p style="font-weight: 600; color: #888;">Information</p>
                     <table class="params-table">
                         <tbody>
                             <tr>
@@ -1025,7 +1573,7 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/role_collector_configure role</h3>
+                    <h3>/role_collector_configure role <span class="status-active">✅ Active</span></h3>
                     <p>Configure a role for Role Collector</p>
                     <div class="info-box">
                         <p>Roles above Roblox Society's highest role cannot be an unboxable role.</p>
@@ -1034,7 +1582,7 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/role_collector unbox</h3>
+                    <h3>/role_collector unbox <span class="status-active">✅ Active</span></h3>
                     <p>Unbox a role in the server.</p>
                     <table class="params-table">
                         <tbody>
@@ -1047,7 +1595,7 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/unboxable_roles</h3>
+                    <h3>/unboxable_roles <span class="status-active">✅ Active</span></h3>
                     <p>View all of the unboxable roles in a server.</p>
                     <table class="params-table">
                         <tbody>
@@ -1064,11 +1612,21 @@
             <section id="economy" class="section">
                 <div class="header">
                     <h1>📈 Economy</h1>
+                    <p>Commands for Robux conversion and limited item lookups.</p>
                 </div>
 
                 <div class="command-card">
-                    <h3>/devex</h3>
+                    <h3>/devex <span class="status-active">✅ Active</span></h3>
                     <p>-> Convert Robux to USD or vice versa.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Converted amount</li>
+                            <li>Current exchange rate</li>
+                            <li>DevEx fee calculation</li>
+                            <li>Net payout estimate</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | [Required]</p>
                     <table class="params-table">
                         <tbody>
@@ -1085,13 +1643,34 @@
                 </div>
 
                 <div class="command-card">
-                    <h3>/limited cheapest</h3>
+                    <h3>/limited cheapest <span class="status-active">✅ Active</span></h3>
                     <p>-> Get the cheapest limited on the catalog.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Cheapest limited item name</li>
+                            <li>Current price</li>
+                            <li>Item thumbnail</li>
+                            <li>RAP value</li>
+                            <li>Link to item</li>
+                        </ul>
+                    </div>
                 </div>
 
                 <div class="command-card">
-                    <h3>/limited search</h3>
+                    <h3>/limited search <span class="status-active">✅ Active</span></h3>
                     <p>-> Lookup a Classic/UGC limited.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Item details and thumbnail</li>
+                            <li>Current price</li>
+                            <li>RAP (Recent Average Price)</li>
+                            <li>Value estimate</li>
+                            <li>Price history</li>
+                            <li>Demand indicator</li>
+                        </ul>
+                    </div>
                     <p style="font-weight: 600; margin-top: 12px;">Options | [Required]</p>
                     <table class="params-table">
                         <tbody>
@@ -1114,16 +1693,135 @@
                     <h1>⁉️ Misc</h1>
                     <p>miscellaneous commands</p>
                 </div>
+
+                <div class="command-card">
+                    <h3>/rbxtools skintone_lookup <span class="status-active">✅ Active</span></h3>
+                    <p>Look up Roblox skin tone colors by their BrickColor ID or name.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Color name</li>
+                            <li>BrickColor ID</li>
+                            <li>RGB values</li>
+                            <li>Color preview</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/ping <span class="status-active">✅ Active</span></h3>
+                    <p>Check the bot's response time and status.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Bot latency (ms)</li>
+                            <li>API response time</li>
+                            <li>Shard information</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="command-card">
+                    <h3>/help <span class="status-active">✅ Active</span></h3>
+                    <p>Get a list of all available commands or detailed help for a specific command.</p>
+                    <div class="returns-section">
+                        <p style="font-weight: 600; color: #22c55e;">Returns:</p>
+                        <ul class="returns-list">
+                            <li>Command list by category</li>
+                            <li>Detailed command usage</li>
+                            <li>Parameter explanations</li>
+                        </ul>
+                    </div>
+                </div>
             </section>
 
             <!-- Q&A Section -->
             <section id="qa" class="section">
                 <div class="header">
                     <h1>⁉️ Q&A</h1>
+                    <p>Frequently asked questions about Roblox Society</p>
                 </div>
 
-                <div class="info-box">
-                    <p>Q&A section - Coming Soon</p>
+                <div class="qa-container">
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>How do I add Roblox Society to my server?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>You can invite Roblox Society to your Discord server by clicking the invite link in our official Discord server or using the invite button on our website. You'll need "Manage Server" permissions to add the bot.</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>Why are some commands disabled?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>Some commands are temporarily disabled while we rebuild them with significant improvements. We prioritize quality over availability - these commands will return better than before! Check the Home page for detailed status on each disabled command.</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>Is the bot free to use?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>Yes! Most commands are completely free. Some advanced features like <code>/rsgroup</code> may have premium tiers in the future, but core functionality will always remain free.</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>How do I report a bug or suggest a feature?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>Join our official Discord server and use the bug report or suggestion channels. We actively review all feedback and appreciate community input for improvements!</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>What's the difference between /rs and /asset content?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p><code>/asset content</code> is our beta testing ground for new features. New capabilities are tested there first before being merged into the main <code>/rs</code> command once stable.</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>Can I use the bot for my Roblox group?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>Absolutely! Commands like <code>/rsgroup</code>, <code>/group info</code>, and <code>/group members</code> are specifically designed for group management and asset organization.</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>How does Role Collector work?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>Role Collector is a fun server game where members can "unbox" collectible roles. Server admins configure which roles are available and their rarity. Members use <code>/role_collector unbox</code> to try their luck!</p>
+                        </div>
+                    </div>
+
+                    <div class="dropdown">
+                        <div class="dropdown-header">
+                            <span class="dropdown-arrow">▶</span>
+                            <span>Where does the limited item data come from?</span>
+                        </div>
+                        <div class="dropdown-content">
+                            <p>Limited item data including RAP and value estimates are sourced from <a href="https://www.rolimons.com/">Rolimon's</a>, a trusted third-party Roblox economy tracking service.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
@@ -1131,11 +1829,37 @@
             <section id="hall-fame" class="section">
                 <div class="header">
                     <h1>🏆 Hall of Fame</h1>
-                    <p>Recognizing outstanding community members</p>
+                    <p>Recognizing outstanding community members and contributors</p>
                 </div>
 
-                <div class="info-box">
-                    <p>Hall of Fame entries - Coming soon</p>
+                <div class="hall-of-fame-grid">
+                    <div class="fame-card">
+                        <div class="fame-badge founder">👑 Founder</div>
+                        <h3>Kurrasch Systems</h3>
+                        <p>Creator and lead developer of Roblox Society. Transformed the bot from a 2-command project into a comprehensive Roblox toolkit.</p>
+                    </div>
+
+                    <div class="fame-card">
+                        <div class="fame-badge contributor">⭐ Top Contributors</div>
+                        <h3>Community Testers</h3>
+                        <p>Special thanks to all community members who report bugs, suggest features, and help make Roblox Society better every day.</p>
+                    </div>
+
+                    <div class="fame-card">
+                        <div class="fame-badge supporter">💎 Early Supporters</div>
+                        <h3>Day One Users</h3>
+                        <p>Recognition for users who've been with us since the beginning, helping shape the bot's direction through valuable feedback.</p>
+                    </div>
+
+                    <div class="fame-card">
+                        <div class="fame-badge hunter">🔍 Bug Hunters</div>
+                        <h3>Vulnerability Reporters</h3>
+                        <p>Members who've responsibly disclosed security issues, helping keep the bot safe for everyone. Contact Dev for potential rewards!</p>
+                    </div>
+                </div>
+
+                <div class="info-box" style="margin-top: 30px;">
+                    <p><strong>Want to be featured?</strong> Contribute to the community by reporting bugs, helping other users, or suggesting valuable improvements. Outstanding contributors are recognized here!</p>
                 </div>
             </section>
 
@@ -1155,7 +1879,7 @@ Governed by the Laws of the State of Minnesota, USA
 1. Introduction
 
 Welcome to Roblox Society, a platform and community hub developed and operated under Kurrasch Systems, a department of Kurrasch Gaming Merch Store LLC, based in Minnesota.
-By accessing or using Roblox Society (“Service”), you agree to these Terms of Service (“Terms”), along with Roblox’s Terms of Use and the policies of Kurrasch Systems.
+By accessing or using Roblox Society ("Service"), you agree to these Terms of Service ("Terms"), along with Roblox's Terms of Use and the policies of Kurrasch Systems.
 
 2. Eligibility
 
@@ -1167,7 +1891,7 @@ Roblox Society provides community tools, documentation, and interactive resource
 
 You agree not to misuse the platform, distribute malware, or attempt to exploit vulnerabilities.
 
-You must comply with Roblox’s own Community Standards and Developer Terms.
+You must comply with Roblox's own Community Standards and Developer Terms.
 
 Any external integrations (such as Discord or Kurrasch Systems accounts) must be used in compliance with their respective terms.
 
@@ -1180,7 +1904,7 @@ All proprietary tools, branding, and software within Roblox Society are owned by
 
 Users may connect through Roblox, Kurrasch Systems, or Discord integrations.
 
-We may suspend or terminate accounts for violations of these Terms or of Roblox’s own policies.
+We may suspend or terminate accounts for violations of these Terms or of Roblox's own policies.
 
 You are responsible for maintaining your login credentials.
 
@@ -1188,7 +1912,7 @@ You are responsible for maintaining your login credentials.
 
 Roblox Society is an independent platform, not owned or operated by Roblox Corporation.
 We are not responsible for outages, content moderation, or account actions made by Roblox itself.
-Use of Roblox Society is at your own risk, and all services are provided “as is”.
+Use of Roblox Society is at your own risk, and all services are provided "as is".
 
 7. Dispute Resolution
 
@@ -1243,9 +1967,9 @@ You may disable cookies, though some features may not function properly.
 Data is retained only as long as necessary for operational purposes or as required by law.
 Upon request, users can have identifiable data deleted, except data needed for legal compliance.
 
-6. Children’s Privacy
+6. Children's Privacy
 
-Roblox Society complies with COPPA and Roblox’s age requirements.
+Roblox Society complies with COPPA and Roblox's age requirements.
 We do not knowingly collect data from children under 13 without parental consent.
 
 ⚖️ Roblox Society – Code of Conduct
@@ -1259,11 +1983,11 @@ Treat all community members with respect.
 
 No harassment, hate speech, or discrimination of any kind.
 
-Follow both Roblox’s Community Standards and Kurrasch Systems’ ethics policies.
+Follow both Roblox's Community Standards and Kurrasch Systems' ethics policies.
 
 2. Fair Use and Content
 
-Only share content that follows Roblox’s content policies.
+Only share content that follows Roblox's content policies.
 
 Do not upload copyrighted materials or NSFW/unsafe content.
 
@@ -1295,7 +2019,7 @@ Account removal
 
 Reporting to Roblox or relevant authorities if serious misconduct occurs
 
-All enforcement actions are handled under Minnesota law and Kurrasch Systems’ internal policies.</p>
+All enforcement actions are handled under Minnesota law and Kurrasch Systems' internal policies.</p>
                 </div>
 
                 <div class="footer">
@@ -1306,6 +2030,7 @@ All enforcement actions are handled under Minnesota law and Kurrasch Systems’ 
     </div>
 
     <script>
+        // Matrix Background Animation
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
 
@@ -1331,12 +2056,9 @@ All enforcement actions are handled under Minnesota law and Kurrasch Systems’ 
             for (let i = 0; i < drops.length; i++) {
                 const text = chars.charAt(Math.floor(Math.random() * chars.length));
                 
-                // RED for 0 and A-M letters
                 if (text === '0' || (text >= 'A' && text <= 'M') || (text >= 'a' && text <= 'm')) {
                     ctx.fillStyle = '#dc2626';
-                } 
-                // NAVY BLUE for 1 and N-Z letters
-                else {
+                } else {
                     ctx.fillStyle = '#1e3a8a';
                 }
 
